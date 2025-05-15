@@ -2,6 +2,11 @@
 - התקינו את [VS Code](https://code.visualstudio.com/download)
 - התקינו את [NET Framework.](https://dotnet.microsoft.com/en-us/download)
 - התקינו את [git](https://git-scm.com/downloads/win)
+- התחברו git בעזרת הרצת הפקודות:
+```
+git config --global user.name _
+git config --global user.email _
+```
 - התקינו TypeScript בעזרת הרצת הפקודות:
 ```
 powershell -c "irm bun.sh/install.ps1 | iex"
