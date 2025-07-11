@@ -107,9 +107,13 @@ public class Server
         return new Request(_context, path);
       }
 
+      if (path == "favicon.ico")
+      {
+        path = "website/favicon.ico";
+      }
+
       if (!File.Exists(path))
       {
-
         _context.Response.StatusCode = 404;
         if (_context.Request.AcceptTypes?.Contains("text/html") ?? false)
         {
@@ -233,29 +237,5 @@ public class Request(HttpListenerContext context, string path)
     var arrJsonStr = arrJsonObj.ToJsonString();
 
     return arrJsonStr;
-  }
-}
-
-public class DbBase : DbContext
-{
-  readonly string _name;
-  readonly bool _isNewlyCreated;
-
-  public DbBase(string name) : base()
-  {
-    _name = name;
-
-    _isNewlyCreated = Database.EnsureCreated();
-    Database.ExecuteSqlRaw("PRAGMA journal_mode = DELETE;");
-  }
-
-  public bool IsNewlyCreated()
-  {
-    return _isNewlyCreated;
-  }
-
-  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-  {
-    optionsBuilder.UseSqlite($"Data Source={_name}.sqlite");
   }
 }

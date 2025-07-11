@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="index.css" />
     <title>Index Page</title>
   </head>
-
   <body>
     <h1>Example Website</h1>
 
-    <h3>Enter a product</h3>
-    <table>
-      <tr>
-        <td>Name</td>
-        <td><input id="nameInput" /></td>
-      </tr>
-      <tr>
-        <td>Price (₪)</td>
-        <td><input type="number" id="priceInput" /></td>
-      </tr>
-    </table>
+    <input id="messageInput" />
 
-    <br />
+    <button id="sendButton">Send</button>
 
-    <button id="addButton">Add</button>
-
-    <br />
-
-    <h3>Product List</h3>
-    <div id="productsDiv"></div>
+    <div id="responseDiv"></div>
 
     <script type="module" src="index.js"></script>
   </body>
