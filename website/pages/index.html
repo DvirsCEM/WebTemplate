@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+    <title>Index Page</title>
+  </head>
 
-<head>
-  <title>Index Page</title>
-</head>
+  <body>
+    <h1>Example Website</h1>
 
-<body>
-  <h1>The main page of the website</h1>
-</body>
+    <h3>Enter a product</h3>
+    <table>
+      <tr>
+        <td>Name</td>
+        <td><input id="nameInput" /></td>
+      </tr>
+      <tr>
+        <td>Price (₪)</td>
+        <td><input type="number" id="priceInput" /></td>
+      </tr>
+    </table>
 
+    <br />
+
+    <button id="addButton">Add</button>
+
+    <br />
+
+    <h3>Product List</h3>
+    <div id="productsDiv"></div>
+
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
