@@ -1,27 +1,11 @@
 import { send } from "../utilities";
-import { Product } from "./types";
 
-var addButton = document.querySelector("#addButton") as HTMLButtonElement;
-var nameInput = document.querySelector("#nameInput") as HTMLInputElement;
-var priceInput = document.querySelector("#priceInput") as HTMLInputElement;
-var productsDiv = document.querySelector("#productsDiv") as HTMLUListElement;
+var messageInput = document.querySelector("#messageInput") as HTMLInputElement;
+var sendButton = document.querySelector("#sendButton") as HTMLButtonElement;
+var responseDiv = document.querySelector("#responseDiv") as HTMLDivElement;
 
-var products = await send("getProducts") as Product[];
+sendButton.onclick = async () => {
+  var response = await send("message", messageInput.value);
 
-for (var i = 0; i < products.length; i++) {
-  var product = products[i];
-
-  var productLi = document.createElement("li");
-  productLi.innerText = product.price + "₪ - " + product.name;
-
-  productsDiv.appendChild(productLi);
-}
-
-
-addButton.onclick = async () => {
-  var name = nameInput.value;
-  var price = Number(priceInput.value);
-  console.log(name, price);
-  await send("addProduct", [name, price]);
-  location.reload();
+  responseDiv.innerText = response;
 };

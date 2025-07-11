@@ -14,8 +14,6 @@ class Program
     Console.WriteLine("The server is running");
     Console.WriteLine($"Main Page: http://localhost:{port}/website/pages/index.html");
 
-    var database = new Database();
-
     while (true)
     {
       var request = server.WaitForRequest();
@@ -27,19 +25,13 @@ class Program
         /*──────────────────────────────────╮
         │ Handle your custome requests here │
         ╰──────────────────────────────────*/
-        if (request.Name == "addProduct")
+        if (request.Name == "message")
         {
-          var (name, price) = request.GetParams<(string, double)>();
+          var content = request.GetParams<string>();
 
-          var newProduct = new Product(name, price);
+          Console.WriteLine(content);
 
-          database.Products.Add(newProduct);
-
-          database.SaveChanges();
-        }
-        else if (request.Name == "getProducts")
-        {
-          request.Respond(database.Products.ToArray());
+          request.Respond(content + " back!");
         }
         else
         {
@@ -53,28 +45,4 @@ class Program
       }
     }
   }
-}
-
-
-class Database() : DbBase("database")
-{
-  /*──────────────────────────────╮
-  │ Add your database tables here │
-  ╰──────────────────────────────*/
-  public DbSet<User> Users { get; set; } = default!;
-  public DbSet<Product> Products { get; set; } = default!;
-}
-
-class User(string id, string username, string password)
-{
-  [Key] public string Id { get; set; } = id;
-  public string Username { get; set; } = username;
-  public string Password { get; set; } = password;
-}
-
-class Product(string name, double price)
-{
-  [Key] public int Id { get; set; } = default!;
-  public string Name { get; set; } = name;
-  public double Price { get; set; } = price;
 }
