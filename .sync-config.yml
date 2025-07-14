@@ -1,10 +1,10 @@
 files:
-  - .vscode/settings.json
-  - .vscode/tasks.json
-  - LoggingUtilities/Log.cs
-  - ServerUtilities/Request.cs
-  - ServerUtilities/Server.cs
-  - website/clientUtilities.ts
-  - .gitignore
-  - Project.csproj
-  - tsconfig.json
+- .vscode/settings.json
+- .vscode/tasks.json
+- LoggingUtilities/Log.cs
+- ServerUtilities/Request.cs
+- ServerUtilities/Server.cs
+- website/clientUtilities.ts
+- .gitignore
+- Project.csproj
+- tsconfig.json
