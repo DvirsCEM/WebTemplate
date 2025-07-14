@@ -13,12 +13,8 @@ public class Request(HttpListenerContext context, string path)
   static readonly JsonSerializerOptions JsonSerializeOptions = new()
   {
     PropertyNamingPolicy = new LowerCaseNamingPolicy(),
-    IncludeFields = true
   };
-  static readonly JsonSerializerOptions JsonDeserializeOptions = new()
-  {
-    IncludeFields = true
-  };
+  static readonly JsonSerializerOptions JsonDeserializeOptions = new() { };
 
   public string Name { get; } = path;
 
