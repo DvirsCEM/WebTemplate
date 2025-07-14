@@ -3,8 +3,16 @@ using System.Linq;
 
 namespace Project.LoggingUtilities;
 
+// Summary:
+// Provides logging utilities for the application.
 public static class Log
 {
+  // Summary:
+  // Formats the exception message and stack trace, filtering out lines that do not contain
+  // the current directory to make the output more readable, and prints it to the console.
+  // // Parameters:
+  //   exception:
+  //     The exception to log.
   public static void WriteException(Exception exception)
   {
     var shortened = ShortenException(exception);

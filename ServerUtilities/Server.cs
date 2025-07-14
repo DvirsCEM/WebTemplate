@@ -4,11 +4,26 @@ using System.Net;
 
 namespace Project.ServerUtilities;
 
+//
+// Summary:
+// Provides server utilities for handling HTTP requests and responses.
+// This class allows for custom request handling and response formatting.
+// It includes methods for reading request parameters and sending responses.
+// It also supports custom request paths and handles static file serving.
 public class Server
 {
   readonly HttpListener _listener;
   HttpListenerContext? _context = null;
 
+  //
+  // Summary:
+  // Initializes a new instance of the Server class with the specified port.
+  //  //
+  // Parameters:
+  //   port:
+  //     The port on which the server will listen for requests.
+  //  // Returns:
+  //   A new instance of the Server class.
   public Server(int port)
   {
     _listener = new HttpListener();
@@ -16,6 +31,11 @@ public class Server
     _listener.Start();
   }
 
+  //
+  // Summary:
+  // Waits for an incoming request and returns a Request object representing it.
+  // Returns:
+  // A Request object representing the incoming request.
   public Request WaitForRequest()
   {
     while (true)
@@ -64,6 +84,11 @@ public class Server
     }
   }
 
+  //
+  // Summary:
+  // Gets the path of the request, adjusting for custom requests and static file serving.
+  // Returns:
+  //   The adjusted path of the request.
   string GetPath()
   {
     var context = _context!;
