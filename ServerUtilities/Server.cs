@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using System.Net;
 
 namespace Project.ServerUtilities;
@@ -43,8 +42,9 @@ public class Server
       _context?.Response.Close();
       _context = _listener.GetContext();
       var path = GetPath();
+      var type = GetRequestType();
 
-      if (IsCustomeRequest())
+      if (type == "custom")
       {
         return new Request(_context, path);
       }
@@ -57,7 +57,7 @@ public class Server
       if (!File.Exists(path))
       {
         _context.Response.StatusCode = 404;
-        if (_context.Request.AcceptTypes?.Contains("text/html") ?? false)
+        if (type == "document")
         {
           path = "website/pages/404.html";
         }
@@ -67,11 +67,10 @@ public class Server
         }
       }
 
-      var fileExtension = path.Split(".").Last();
-      _context.Response.ContentType = fileExtension switch
+      _context.Response.ContentType = GetRequestType() switch
       {
-        "html" => "text/html; charset=utf-8",
-        "js" => "application/javascript",
+        "document" => "text/html; charset=utf-8",
+        "script" => "application/javascript",
         _ => "",
       };
 
@@ -84,33 +83,35 @@ public class Server
     }
   }
 
-  //
-  // Summary:
-  // Gets the path of the request, adjusting for custom requests and static file serving.
-  // Returns:
-  //   The adjusted path of the request.
+  string GetRequestType()
+  {
+    var secFetchDest = _context!.Request.Headers["Sec-Fetch-Dest"];
+    if (secFetchDest != null && secFetchDest != "empty")
+    {
+      return secFetchDest;
+    }
+
+    var isCustomRequest = _context.Request.Headers["X-Custom-Request"];
+    if (isCustomRequest != null && isCustomRequest == "true")
+    {
+      return "custom";
+    }
+
+    return "empty";
+  }
+
   string GetPath()
   {
     var context = _context!;
 
     var path = context.Request.Url!.AbsolutePath[1..];
 
-    if ((context.Request.AcceptTypes?.Contains("text/html") ?? false) &&
-      !path.EndsWith(".html"))
-    {
-      path += ".html";
-    }
-    else if ((context.Request.UrlReferrer?.AbsolutePath.EndsWith(".js") ?? false) &&
+    if (GetRequestType() == "script" &&
       !path.EndsWith(".js"))
     {
       path += ".js";
     }
 
     return path;
-  }
-
-  bool IsCustomeRequest()
-  {
-    return _context!.Request.Headers["X-Is-Custom"] == "true";
   }
 }
