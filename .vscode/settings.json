@@ -5,6 +5,7 @@
     "LoggingUtilities": true,
     "ServerUtilities": true,
     "website/clientUtilities.ts": true,
+    "website/componentUtilities.ts": true,
     ".gitignore": true,
     ".sync-config.yml": true,
     "README.md": true,
