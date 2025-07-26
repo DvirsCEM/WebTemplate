@@ -6,13 +6,13 @@
  */
 export async function send<T = any>(
   path: string,
-  params: any = [],
+  ...params: any[]
 ): Promise<T> {
   var response = await fetch(
     `/${path}`,
     {
       method: "POST",
-      body: JSON.stringify(params),
+      body: JSON.stringify(params.length > 1 ? params : params[0] ?? []),
       headers: { "X-Custom-Request": "true" },
     },
   );
