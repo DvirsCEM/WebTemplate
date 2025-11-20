@@ -36,12 +36,12 @@ class Program
         }
         else
         {
-          request.SetStatusCode(405);
+          request.SetStatusCode(400);
         }
       }
       catch (Exception exception)
       {
-        request.SetStatusCode(422);
+        request.SetStatusCode(500);
         Log.WriteException(exception);
       }
     }
